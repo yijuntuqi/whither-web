@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Whither · 关于</title>
-<meta name="description" content="Whither 项目背景、设计理念、技术选型理由">
+<meta name="description" content="Whither 项目背景、设计理念">
 <link rel="icon" type="image/svg+xml" href="assets/whither-logo.svg">
 <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -18,13 +18,13 @@
     </a>
     <div class="nav-links">
       <a href="index.html">首页</a>
-      <a href="app.html">体验</a>
+      <a href="https://whither-production.up.railway.app" target="_blank" rel="noopener">体验</a>
       <a href="docs.html">文档</a>
       <a href="about.html" class="active">关于</a>
       <a href="contact.html">联系</a>
     </div>
     <div class="nav-cta">
-      <a href="https://github.com/yijuntuqi/Whither" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+      <a href="https://whither-production.up.railway.app" target="_blank" rel="noopener" class="btn btn-primary">🚀 立即体验</a>
     </div>
   </div>
 </nav>
@@ -45,13 +45,13 @@
         Whither 试了一个不同的思路：让 AI Agent 主动去"找"这些信息，而不是让用户去一个一个 App 里翻。它背后接的是真实的数据源——12306 车次、高德交通、Tavily 搜索、4288 条攻略知识库——并且会用工具之间的结果相互印证。
       </p>
       <p style="color:var(--ink-light);line-height:1.8;">
-        项目名 "Whither" 来自莎士比亚的台词 <em>"Whither thou goest, I will go"</em>，意思是"你去哪我去哪"。我们希望 Whither 能真正理解一个旅行者想去的地方，而不只是给一些通用的模板。
+        项目名 "Whither" 来自莎士比亚的台词 <em>"Whither thou goest, I will go"</em>——意思是"你去哪我去哪"。我们希望 Whither 能真正理解一个旅行者想去的地方，而不只是给一些通用的模板。
       </p>
     </div>
     <div>
       <div class="about-card" style="margin-bottom:16px;">
         <h3>🎯 定位</h3>
-        <p>消费级中文旅行规划 Agent，不是企业 SaaS，不收费，只把功能做扎实。</p>
+        <p>消费级中文旅行规划 Agent。不是企业 SaaS，不收费，只把功能做扎实。</p>
       </div>
       <div class="about-card" style="margin-bottom:16px;">
         <h3>🧠 设计理念</h3>
@@ -59,7 +59,7 @@
       </div>
       <div class="about-card">
         <h3>📋 覆盖范围</h3>
-        <p>国内 107 座热门城市，4288 条精选攻略，每周可以增量更新。</p>
+        <p>国内 107 座热门城市，4288 条精选攻略，持续更新。</p>
       </div>
     </div>
   </div>
@@ -67,41 +67,42 @@
   <!-- 技术选型理由 -->
   <section class="section-sm" style="padding-top:0;">
     <h2 class="section-title" style="text-align:center;margin-bottom:12px;">技术选型理由</h2>
-    <p class="section-sub">我们为什么选了这些技术，而不是那些。</p>
+    <p class="section-sub">为什么选了这些，而不是那些。</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;">
-        <h3 style="font-size:15px;margin-bottom:8px;">LangGraph 而不是 LangChain Agent</h3>
-        <p style="font-size:13px;color:var(--sub);line-height:1.7;">LangGraph 能精细控制状态机，工具调用有明确的节点边界，比 LangChain Agent 的 ReAct 循环更可控、更容易调试。</p>
+        <h3 style="font-size:15px;margin-bottom:8px;">LangGraph 而不是 ReAct Agent</h3>
+        <p style="font-size:13px;color:var(--sub);line-height:1.7;">LangGraph 能精细控制状态机，工具调用有明确的节点边界，比 ReAct 循环更可控、更容易调试。</p>
       </div>
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;">
         <h3 style="font-size:15px;margin-bottom:8px;">FastAPI + SSE 而不是 WebSocket</h3>
-        <p style="font-size:13px;color:var(--sub);line-height:1.7;">SSE 比 WebSocket 更轻量，HTTP 标准协议在反向代理（Nginx/Railway）里零配置即可工作。</p>
+        <p style="font-size:13px;color:var(--sub);line-height:1.7;">SSE 是 HTTP 标准协议，反向代理零配置即可工作，比 WebSocket 更轻量。</p>
       </div>
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;">
-        <h3 style="font-size:15px;margin-bottom:8px;">MCP Protocol 而不是自研工具协议</h3>
-        <p style="font-size:13px;color:var(--sub);line-height:1.7;">MCP 让工具即插即用，接入新的数据源（航班、美食推荐等）只要写一个 MCP server，不需要改主代码。</p>
+        <h3 style="font-size:15px;margin-bottom:8px;">MCP Protocol 统一工具</h3>
+        <p style="font-size:13px;color:var(--sub);line-height:1.7;">MCP 让工具即插即用。接新数据源（航班、美食）只需要写一个 MCP server，不用改主代码。</p>
       </div>
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;">
         <h3 style="font-size:15px;margin-bottom:8px;">DashScope qwen3.7-text-embedding</h3>
-        <p style="font-size:13px;color:var(--sub);line-height:1.7;">默认 1024 维，和本地 bge-m3 维度一致，开发/部署可以无缝切换。100 万 token 免费额度够用。</p>
+        <p style="font-size:13px;color:var(--sub);line-height:1.7;">默认 1024 维，本地 bge-m3 开发 / DashScope 部署无缝切换。有免费额度。</p>
       </div>
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;">
         <h3 style="font-size:15px;margin-bottom:8px;">原生 HTML/CSS/JS 前端</h3>
-        <p style="font-size:13px;color:var(--sub);line-height:1.7;">没有 React/Vue 的构建复杂性，Netlify 零配置即可部署，用户"查看源代码"也能立即看懂。</p>
+        <p style="font-size:13px;color:var(--sub);line-height:1.7;">无框架、无构建、无依赖。Netlify 零配置部署，用户"查看源代码"也能看懂。</p>
       </div>
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px;">
         <h3 style="font-size:15px;margin-bottom:8px;">Dockerfile 强制构建</h3>
-        <p style="font-size:13px;color:var(--sub);line-height:1.7;">Railway 上 Dockerfile 构建能确保和本地环境一致，不用和基础镜像里预装的 Python 版本打架。</p>
+        <p style="font-size:13px;color:var(--sub);line-height:1.7;">和本地环境一致，不用和 Railway 基础镜像里预装的 Python 版本打架。</p>
       </div>
     </div>
   </section>
 
-  <!-- 团队 / 作者 -->
+  <!-- 作者 -->
   <section class="section-sm" style="padding-top:20px;">
     <div style="text-align:center;">
       <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent));margin:0 auto 18px;display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;font-weight:700;">YJ</div>
       <h3 style="font-size:18px;margin-bottom:6px;">yijuntuqi</h3>
-      <p style="color:var(--sub);font-size:14px;margin-bottom:14px;">Whither 项目作者 · 北邮计算机 2021 级</p>
+      <p style="color:var(--sub);font-size:14px;margin-bottom:4px;">北京师范大学 · 2024 级 · 人工智能专业</p>
+      <p style="color:var(--sub);font-size:14px;margin-bottom:18px;">Whither 项目作者</p>
       <a href="contact.html" class="btn btn-primary">联系我</a>
     </div>
   </section>
@@ -118,9 +119,9 @@
     </div>
     <div class="footer-col">
       <h4>产品</h4>
-      <a href="app.html">在线体验</a>
+      <a href="index.html">首页</a>
+      <a href="https://whither-production.up.railway.app" target="_blank" rel="noopener">在线体验</a>
       <a href="docs.html">使用文档</a>
-      <a href="about.html">关于项目</a>
     </div>
     <div class="footer-col">
       <h4>资源</h4>
