@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whither · 在线体验</title>
+<meta name="description" content="与 Whither 对话，规划你的下一次旅行">
+<meta name="theme-color" content="#0e7c7b">
+<link rel="icon" type="image/svg+xml" href="assets/whither-logo.svg">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  /* ===== 聊天页专属样式 ===== */
+  :root {
+    --app-bg: #eef3f4;
+    --app-panel: #ffffff;
+  }
+  .app-page { background: var(--bg); min-height: calc(100vh - 72px); padding-bottom: 80px; }
+  .app-shell { max-width: 860px; margin: 0 auto; padding: 24px 20px 40px; }
+  .app-hero {
+    background: linear-gradient(135deg, var(--brand-dark), var(--brand), #11918f);
+    border-radius: var(--radius); padding: 28px 32px; color: #fff; margin-bottom: 24px;
+    box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+  }
+  .app-hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(30rem 14rem at 20% -10%, rgba(72,202,228,.45), transparent 60%);
+  }
+  .app-hero-inner { position: relative; z-index: 2; }
+  .app-hero h2 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 6px; }
+  .app-hero p { opacity: .88; font-size: 14px; margin-bottom: 16px; }
+  .quick-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .quick-chip {
+    background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.28);
+    backdrop-filter: blur(4px); border-radius: 10px;
+    padding: 8px 14px; font-size: 13px; cursor: pointer; color: #fff;
+    transition: all .2s; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .quick-chip:hover { background: rgba(255,255,255,.28); transform: translateY(-1px); }
+
+  .chat-area { display: flex; flex-direction: column; gap: 14px; }
+  .msg { display: flex; gap: 10px; animation: fadeInUp .35s ease; }
+  .msg.user { flex-direction: row-reverse; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 11px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+  }
+  .msg.user .avatar { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); }
+  .avatar img { width: 22px; height: 22px; }
+  .bubble {
+    max-width: 78%; padding: 11px 15px; border-radius: 14px; font-size: 14px;
+    line-height: 1.72; word-break: break-word; background: #fff;
+    border: 1px solid var(--line); box-shadow: 0 2px 10px rgba(14,124,123,.04);
+  }
+  .msg.user .bubble { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; border-color: transparent; border-top-right-radius: 4px; }
+  .msg.bot .bubble { border-top-left-radius: 4px; }
+  .bubble pre { background: #0f2027; color: #e2e8f0; padding: 12px; border-radius: 10px; overflow-x: auto; font-size: 12.5px; line-height: 1.55; margin: 8px 0; }
+  .bubble :not(pre) > code { background: rgba(14,124,123,.1); padding: 1px 6px; border-radius: 5px; font-family: ui-monospace, Consolas, monospace; font-size: 13px; }
+  .msg.user .bubble :not(pre) > code { background: rgba(255,255,255,.22); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 4px 46px; }
+  .chip { font-size: 11.5px; color: var(--brand); background: var(--brand-soft); padding: 4px 11px; border-radius: 999px; border: 1px solid rgba(14,124,123,.18); }
+
+  .cursor { display: inline-block; width: 7px; height: 15px; background: var(--brand); vertical-align: -2px; margin-left: 2px; animation: blink 1s infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .typing-indicator { display: inline-flex; gap: 4px; padding: 4px 0; }
+  .typing-indicator span { width: 7px; height: 7px; background: var(--brand); border-radius: 50%; opacity: .4; animation: typingDot 1.2s infinite; }
+  .typing-indicator span:nth-child(2) { animation-delay: .2s; }
+  .typing-indicator span:nth-child(3) { animation-delay: .4s; }
+
+  .pdf-card {
+    margin-top: 10px; background: linear-gradient(135deg, var(--brand-soft), #fff 80%);
+    border: 1px solid rgba(14,124,123,.25); border-radius: 12px; padding: 12px 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .pdf-icon { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; background: linear-gradient(135deg, #d12d3b, #a0222e); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .pdf-title { font-weight: 700; font-size: 13px; }
+  .pdf-sub { font-size: 11px; color: var(--sub); margin-top: 2px; }
+  .pdf-btn { margin-left: auto; background: var(--brand); color: #fff; border: none; border-radius: 9px; padding: 8px 14px; font-size: 12.5px; cursor: pointer; font-weight: 600; transition: all .2s; }
+  .pdf-btn:hover { background: var(--brand-dark); transform: translateY(-1px); }
+
+  .input-area {
+    position: sticky; bottom: 20px; max-width: 860px; margin: 20px auto 0; padding: 0 20px;
+  }
+  .input-wrap {
+    background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 8px 10px 8px 16px;
+    box-shadow: 0 6px 24px rgba(14,124,123,.12); display: flex; align-items: flex-end; gap: 8px;
+  }
+  .input-wrap textarea {
+    flex: 1; resize: none; border: none; outline: none; font-size: 14px; font-family: inherit;
+    padding: 8px 0; min-height: 24px; max-height: 140px; line-height: 1.5; background: transparent;
+  }
+  .input-wrap button {
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark)); color: #fff; border: none;
+    border-radius: 12px; padding: 10px 22px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s;
+  }
+  .input-wrap button:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 4px 14px var(--brand-glow); }
+  .input-wrap button:disabled { opacity: .5; cursor: default; }
+  .input-hint { text-align: center; font-size: 11px; color: var(--sub); margin-top: 8px; }
+
+  /* 设置按钮（后端地址） */
+  .set-area { position: relative; }
+  .set-btn { position: absolute; top: -38px; right: 0; background: #fff; border: 1px solid var(--line); border-radius: 9px; padding: 5px 12px; font-size: 12px; color: var(--sub); cursor: pointer; }
+  .set-btn:hover { border-color: var(--brand); color: var(--brand); }
+  .set-pop { position: absolute; top: -130px; right: 0; width: 280px; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-lg); padding: 14px; display: none; z-index: 50; }
+  .set-pop.open { display: block; animation: popIn .2s ease; }
+  @keyframes popIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .set-pop h4 { font-size: 13px; margin-bottom: 6px; }
+  .set-pop p { font-size: 11px; color: var(--sub); margin-bottom: 8px; }
+  .set-pop input { width: 100%; border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; font-size: 12px; font-family: inherit; }
+  .set-pop input:focus { outline: none; border-color: var(--brand); }
+  .set-pop .sp-actions { display: flex; gap: 6px; margin-top: 8px; }
+  .set-pop .sp-actions button { flex: 1; border-radius: 8px; padding: 6px; font-size: 12px; cursor: pointer; border: 1px solid var(--line); background: #fff; color: var(--ink); }
+  .set-pop .sp-actions .sp-save { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+  @media (max-width: 600px) {
+    .bubble { max-width: 88%; }
+    .app-hero { padding: 22px 20px; }
+    .app-hero h2 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/whither-logo.svg" alt="Whither">
+      Whither <small>何之</small>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="app.html" class="active">体验</a>
+      <a href="docs.html">文档</a>
+      <a href="about.html">关于</a>
+      <a href="contact.html">联系</a>
+    </div>
+    <div class="nav-cta">
+      <a href="index.html" class="btn btn-outline">← 返回首页</a>
+    </div>
+  </div>
+</nav>
+
+<div class="app-page">
+  <div class="app-shell">
+    <div class="app-hero">
+      <div class="app-hero-inner">
+        <h2>Whither · 实时对话</h2>
+        <p>告诉 Whither 你想去哪里，它会自动检索攻略、查询天气、查车次，帮你规划好每一步。</p>
+        <div class="quick-chips">
+          <div class="quick-chip">🐼 成都3日游，帮我规划并导出PDF</div>
+          <div class="quick-chip">🏛️ 北京周末2日游，历史人文为主</div>
+          <div class="quick-chip">🌉 上海3日亲子游，预算中等</div>
+          <div class="quick-chip">🌊 厦门3日海岛休闲游</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-area" id="chat"></div>
+  </div>
+</div>
+
+<div class="input-area">
+  <div class="set-area">
+    <button class="set-btn" id="setBtn">⚙ 后端</button>
+    <div class="set-pop" id="setPop">
+      <h4>⚙ 后端服务地址</h4>
+      <p>默认使用 Railway 后端。部署后如需要切换，粘贴新地址即可。</p>
+      <input type="text" id="apiInput" placeholder="https://your-app.up.railway.app">
+      <div class="sp-actions">
+        <button id="spDefault">默认</button>
+        <button class="sp-save" id="spSave">保存</button>
+      </div>
+    </div>
+  </div>
+  <div class="input-wrap">
+    <textarea id="input" rows="1" placeholder="想去哪里？例如：国庆从北京去成都玩 3 天，帮我规划行程并导出 PDF"></textarea>
+    <button id="send">发送</button>
+  </div>
+  <div class="input-hint">Enter 发送 · Shift+Enter 换行</div>
+</div>
+
+<script>
+/* ===== Whither 聊天应用 ===== */
+const DEFAULT_API_BASE = "https://whither-production.up.railway.app";
+function getApiBase() { return (localStorage.getItem('whither_api_base') || DEFAULT_API_BASE).replace(/\/+$/, ''); }
+function apiUrl(p) { return getApiBase() + p; }
+
+const $chat = document.getElementById('chat');
+const $input = document.getElementById('input');
+const $send = document.getElementById('send');
+let threadId = localStorage.getItem('whither_thread_id') || null;
+let hasMessages = false;
+
+const TOOL_LABELS = {
+  search_travel_knowledge: '检索攻略知识库',
+  list_supported_cities: '查看覆盖城市',
+  search_web_info: '联网实时搜索',
+  calculate_budget: '核算预算',
+  generate_packing_list: '生成打包清单',
+  export_itinerary_pdf: '生成 PDF 手册',
+  plan_route_between_spots: '景点间交通查询',
+};
+function toolLabel(n) { return n.startsWith('query_12306') ? '查询 12306' : TOOL_LABELS[n] || n; }
+
+function autoGrow() {
+  $input.style.height = 'auto';
+  $input.style.height = Math.min($input.scrollHeight, 140) + 'px';
+}
+
+function addHeroPlaceholder() {
+  // hero 部分已经在 HTML 里，这里只处理后续消息
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function renderMd(text) {
+  const parts = [];
+  const fence = /```(\w*)\n?([\s\S]*?)```/g;
+  let last = 0, m;
+  while ((m = fence.exec(text)) !== null) {
+    parts.push(inline(escapeHtml(text.slice(last, m.index))));
+    parts.push('<pre><code>' + escapeHtml(m[2].replace(/\n$/,'')) + '</code></pre>');
+    last = m.index + m[0].length;
+  }
+  parts.push(inline(escapeHtml(text.slice(last))));
+  return parts.join('');
+}
+function inline(s) {
+  return s.replace(/`([^`\n]+)`/g, '<code>$1</code>').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+}
+
+function checkPdf(text, bubble) {
+  const m = text.match(/PDF 手册已生成[:：]\s*data\/exports\/(.+\.pdf)/);
+  if (!m || bubble.querySelector('.pdf-card')) return;
+  const filename = m[1];
+  const card = document.createElement('div');
+  card.className = 'pdf-card';
+  card.innerHTML = '<div class="pdf-icon">📄</div><div><div class="pdf-title">行程手册已生成</div><div class="pdf-sub">' + filename + '</div></div><button class="pdf-btn">⬇ 下载</button>';
+  card.querySelector('.pdf-btn').onclick = () => window.open(apiUrl('/download/' + encodeURIComponent(filename)), '_blank');
+  bubble.appendChild(card);
+  scrollToBottom();
+}
+
+function scrollToBottom() {
+  const inputArea = document.querySelector('.input-area');
+  if (inputArea) inputArea.scrollIntoView({ behavior: 'smooth', block: 'end' });
+}
+
+function addMsg(role, text) {
+  const row = document.createElement('div');
+  row.className = 'msg ' + role;
+  const avatar = role === 'user'
+    ? '<div class="avatar">🧑</div>'
+    : '<div class="avatar"><img src="assets/whither-logo.svg" alt="W"></div>';
+  row.innerHTML = avatar + '<div class="bubble"></div>';
+  const bubble = row.querySelector('.bubble');
+  if (role === 'user') bubble.textContent = text;
+  else bubble.innerHTML = renderMd(text) + '<span class="cursor"></span>';
+  $chat.appendChild(row);
+  scrollToBottom();
+  return bubble;
+}
+
+async function send() {
+  const text = $input.value.trim();
+  if (!text) return;
+  $input.value = ''; autoGrow();
+  addMsg('user', text);
+  $send.disabled = true;
+  const bubble = addMsg('bot', '');
+  let answer = '', chips = null;
+
+  try {
+    const resp = await fetch(apiUrl('/chat'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, thread_id: threadId }),
+    });
+    if (!resp.ok) {
+      bubble.innerHTML = renderMd('⚠️ 请求失败 (' + resp.status + ')。请检查后端地址是否正确（点右上角 ⚙ 设置）。');
+      $send.disabled = false;
+      $input.focus();
+      return;
+    }
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let buf = '';
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buf += decoder.decode(value, { stream: true });
+      const frames = buf.split(/\r?\n\r?\n/);
+      buf = frames.pop();
+      for (const frame of frames) {
+        let event = 'message', data = '';
+        for (const line of frame.split(/\r?\n/)) {
+          if (line.startsWith('event:')) event = line.slice(6).trim();
+          else if (line.startsWith('data:')) data += line.slice(5).trim();
+        }
+        if (event === 'meta') {
+          threadId = data;
+          localStorage.setItem('whither_thread_id', threadId);
+        } else if (event === 'token') {
+          answer += data;
+          bubble.innerHTML = renderMd(answer) + '<span class="cursor"></span>';
+          checkPdf(answer, bubble);
+          scrollToBottom();
+        } else if (event === 'tool') {
+          if (!chips) { chips = document.createElement('div'); chips.className = 'chips'; $chat.insertBefore(chips, bubble.parentElement); }
+          const chip = document.createElement('span'); chip.className = 'chip'; chip.textContent = '🔧 ' + toolLabel(data);
+          chips.appendChild(chip); scrollToBottom();
+        } else if (event === 'error') {
+          answer += '\n\n⚠️ 出错了：' + data;
+          bubble.innerHTML = renderMd(answer);
+        }
+      }
+    }
+  } catch (e) {
+    bubble.innerHTML = renderMd('⚠️ 网络错误：' + e.message + '（可点右上角 ⚙ 检查后端地址）');
+  }
+  bubble.innerHTML = renderMd(answer || '（无返回）');
+  checkPdf(answer, bubble);
+  $send.disabled = false;
+  $input.focus();
+}
+
+$send.addEventListener('click', send);
+$input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } });
+$input.addEventListener('input', autoGrow);
+
+/* Quick chips */
+document.querySelectorAll('.quick-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    $input.value = chip.textContent.trim(); autoGrow(); $input.focus();
+  });
+});
+
+/* Backend settings */
+const $setBtn = document.getElementById('setBtn');
+const $setPop = document.getElementById('setPop');
+const $apiInput = document.getElementById('apiInput');
+$setBtn.onclick = e => { e.stopPropagation(); $setPop.classList.toggle('open'); $apiInput.value = localStorage.getItem('whither_api_base') || ''; };
+document.addEventListener('click', e => { if (!$setPop.contains(e.target) && e.target !== $setBtn) $setPop.classList.remove('open'); });
+document.getElementById('spSave').onclick = () => {
+  let v = $apiInput.value.trim().replace(/\/+$/, '');
+  if (v && !/^https?:\/\//.test(v)) v = 'https://' + v;
+  if (v) localStorage.setItem('whither_api_base', v); else localStorage.removeItem('whither_api_base');
+  $setPop.classList.remove('open');
+};
+document.getElementById('spDefault').onclick = () => { localStorage.removeItem('whither_api_base'); $setPop.classList.remove('open'); };
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+</script>
+</body>
+</html>

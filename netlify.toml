@@ -1,0 +1,9 @@
+# Netlify 部署配置（纯静态，零构建）
+[build]
+  publish = "."
+  command = "echo static site"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

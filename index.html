@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whither · 何之旅行规划助手</title>
+<meta name="description" content="Whither 何之 — 智能旅行规划 Agent，覆盖国内 107 城，自动规划行程、查询天气车次、生成 PDF 攻略手册">
+<meta name="theme-color" content="#0e7c7b">
+<meta property="og:title" content="Whither · 何之旅行规划助手">
+<meta property="og:description" content="智能旅行规划 Agent · 行程规划、天气、车次、PDF 手册">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="assets/whither-logo.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/whither-logo.svg" alt="Whither">
+      Whither <small>何之</small>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">首页</a>
+      <a href="app.html">体验</a>
+      <a href="docs.html">文档</a>
+      <a href="about.html">关于</a>
+      <a href="contact.html">联系</a>
+    </div>
+    <div class="nav-cta">
+      <a href="app.html" class="btn btn-primary">🚀 开始体验</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="hero-bg-img" src="assets/hero-bg.jpg" alt="" onerror="this.remove()">
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1>让每一次旅程<br>都值得<span class="brand-text">被出发</span></h1>
+      <p class="lead">Whither 是一个懂旅行的 AI Agent。它知道国内 107 座城市的攻略、天气、车次，帮你从"想去哪里"到 "出发"，再到一份可以下载带走的 PDF 手册。</p>
+      <div class="hero-cta">
+        <a href="app.html" class="btn btn-primary btn-large">立即体验 →</a>
+        <a href="docs.html" class="btn btn-outline btn-large">查看文档</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="demo-card">
+        <div class="demo-header">
+          <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="demo-title">whither · 实时对话</span>
+        </div>
+        <div class="demo-body">
+          <div class="demo-bubble user">国庆从北京去成都玩 3 天，帮我规划行程并导出 PDF</div>
+          <div class="demo-bubble bot">
+            <div>🔧 检索旅行知识库</div>
+            <div>🔧 查询 12306 车次</div>
+            <div style="margin-top:8px;">好的！先给你整理一份成都 3 日游方案：</div>
+          </div>
+          <div class="demo-bubble bot"><div class="typing-dots"><span></span><span></span><span></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="page">
+  <!-- 功能亮点 -->
+  <section class="section container" style="text-align:center;">
+    <h2 class="section-title">为什么选择 Whither</h2>
+    <p class="section-sub">不是套模板的聊天机器人，是真的懂旅行、会用工具、能交付成果的 Agent。</p>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">📚</div>
+        <h3>攻略知识库</h3>
+        <p>内置 4288 条高质量旅行攻略，覆盖全国 107 座热门城市，基于 DashScope qwen3.7-text-embedding 向量化检索。</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🌤️</div>
+        <h3>实时天气与交通</h3>
+        <p>联网实时搜索天气、景点开放时间、交通状况，让行程不走冤枉路。</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🚄</div>
+        <h3>12306 车次直连</h3>
+        <p>通过 MCP 协议直接查询 12306 余票、车次、时刻，推荐最优交通方案。</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🗺️</div>
+        <h3>真实交通规划</h3>
+        <p>高德地图 MCP 提供真实的公交/地铁/打车时长，景点间路线不再拍脑袋。</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <h3>个性化偏好</h3>
+        <p>出发节奏、预算、酒店偏好、餐饮偏好、特殊需求——填一次就记住。</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📄</div>
+        <h3>可下载 PDF 手册</h3>
+        <p>规划完成后一键生成 PDF 攻略手册，离线可用、出发即带走。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 数据展示 -->
+  <section class="section-sm container">
+    <div class="stats">
+      <div class="stat"><div class="stat-num">107</div><div class="stat-label">覆盖城市</div></div>
+      <div class="stat"><div class="stat-num">4,288</div><div class="stat-label">攻略条目</div></div>
+      <div class="stat"><div class="stat-num">8+7</div><div class="stat-label">工具(MCP)已接入</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">可用行程方案</div></div>
+    </div>
+  </section>
+
+  <!-- 技术栈 -->
+  <section class="section container" style="text-align:center;">
+    <h2 class="section-title">技术栈</h2>
+    <p class="section-sub">现代化的 Agent 架构，每一层都有它该有的样子。</p>
+    <div class="tech-grid">
+      <div class="tech-card"><div class="t-name">LangGraph</div><div class="t-desc">Agent 状态编排</div></div>
+      <div class="tech-card"><div class="t-name">FastAPI</div><div class="t-desc">高性能后端框架</div></div>
+      <div class="tech-card"><div class="t-name">MCP Protocol</div><div class="t-desc">工具调用标准化</div></div>
+      <div class="tech-card"><div class="t-name">DashScope</div><div class="t-desc">Embedding + LLM</div></div>
+      <div class="tech-card"><div class="t-name">LangChain</div><div class="t-desc">RAG 检索与 Prompt</div></div>
+      <div class="tech-card"><div class="t-name">Playwright</div><div class="t-desc">PDF 手册生成</div></div>
+      <div class="tech-card"><div class="t-name">Neon (Postgres)</div><div class="t-desc">会话持久化</div></div>
+      <div class="tech-card"><div class="t-name">12306 MCP</div><div class="t-desc">车次实时查询</div></div>
+      <div class="tech-card"><div class="t-name">高德 MCP</div><div class="t-desc">真实交通规划</div></div>
+      <div class="tech-card"><div class="t-name">Netlify + Railway</div><div class="t-desc">前后端分离部署</div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-sm container">
+    <div class="cta-banner">
+      <h2>准备好出发了吗？</h2>
+      <p>告诉 Whither 你想去哪里，剩下的交给它。</p>
+      <a href="app.html" class="btn btn-primary btn-large">开始一次旅行</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="assets/whither-logo.svg" alt="Whither">
+        <span>Whither</span>
+      </div>
+      <p class="footer-desc">智能旅行规划 Agent · 覆盖国内 107 城<br>让每一次旅程都值得被出发。</p>
+    </div>
+    <div class="footer-col">
+      <h4>产品</h4>
+      <a href="app.html">在线体验</a>
+      <a href="docs.html">使用文档</a>
+      <a href="about.html">关于项目</a>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <a href="https://github.com/yijuntuqi/Whither" target="_blank" rel="noopener">GitHub 后端</a>
+      <a href="https://github.com/yijuntuqi/whither-web" target="_blank" rel="noopener">GitHub 前端</a>
+      <a href="contact.html">联系作者</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Whither · 何之旅行规划助手</span>
+    <span>用 ❤️ 构建 · LangGraph + FastAPI + MCP</span>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+</script>
+</body>
+</html>

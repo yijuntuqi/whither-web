@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whither · 联系</title>
+<meta name="description" content="联系 Whither 项目作者">
+<link rel="icon" type="image/svg+xml" href="assets/whither-logo.svg">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="nav-brand" href="index.html">
+      <img src="assets/whither-logo.svg" alt="Whither">
+      Whither <small>何之</small>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="app.html">体验</a>
+      <a href="docs.html">文档</a>
+      <a href="about.html">关于</a>
+      <a href="contact.html" class="active">联系</a>
+    </div>
+    <div class="nav-cta">
+      <a href="https://github.com/yijuntuqi/Whither" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<section class="page-intro">
+  <h1>联系 Whither</h1>
+  <p>有任何问题、建议、或者想聊聊旅行和 AI，都欢迎来找我。</p>
+</section>
+
+<main class="page" style="padding-top:0;">
+  <div class="container" style="padding-bottom:80px;">
+
+    <!-- 直接联系方式 -->
+    <div style="text-align:center;margin-bottom:40px;">
+      <div style="display:inline-flex;align-items:center;gap:10px;background:var(--brand-soft);color:var(--brand-dark);border-radius:12px;padding:10px 22px;font-weight:600;font-size:14px;margin-bottom:18px;">
+        ✉️ 最快的方式：直接发邮件
+      </div>
+      <a href="mailto:202411109014@mail.bnu.edu.cn" style="font-size:26px;font-weight:700;letter-spacing:-.01em;color:var(--brand);" onmouseover="this.style.color='var(--brand-dark)'" onmouseout="this.style.color='var(--brand)'">202411109014@mail.bnu.edu.cn</a>
+      <p style="margin-top:16px;color:var(--sub);font-size:14px;">回复通常在 24-48 小时内。建议邮件标题注明 "Whither" 方便我分类。</p>
+    </div>
+
+    <!-- GitHub 链接 -->
+    <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:60px;">
+      <a href="https://github.com/yijuntuqi/Whither" target="_blank" rel="noopener"
+         style="display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 26px;transition:all .2s;"
+         onmouseover="this.style.borderColor='var(--brand)';this.style.transform='translateY(-2px)'"
+         onmouseout="this.style.borderColor='var(--line)';this.style.transform='none'">
+        <span style="font-size:28px;">🐙</span>
+        <div>
+          <div style="font-weight:700;font-size:15px;">Whither 后端仓库</div>
+          <div style="font-size:12px;color:var(--sub);">LangGraph + FastAPI + MCP</div>
+        </div>
+      </a>
+      <a href="https://github.com/yijuntuqi/whither-web" target="_blank" rel="noopener"
+         style="display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 26px;transition:all .2s;"
+         onmouseover="this.style.borderColor='var(--brand)';this.style.transform='translateY(-2px)'"
+         onmouseout="this.style.borderColor='var(--line)';this.style.transform='none'">
+        <span style="font-size:28px;">🌐</span>
+        <div>
+          <div style="font-weight:700;font-size:15px;">Whither 前端仓库</div>
+          <div style="font-size:12px;color:var(--sub);">本页面所在仓库</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- 联系表单（用 mailto 方式，不会触发后端） -->
+    <div class="contact-form">
+      <h3 style="font-size:17px;font-weight:700;margin-bottom:18px;text-align:center;">✉️ 留言（通过邮件发送）</h3>
+      <div class="field">
+        <label>你的名字</label>
+        <input type="text" id="f-name" placeholder="怎么称呼你？">
+      </div>
+      <div class="field">
+        <label>邮箱</label>
+        <input type="email" id="f-email" placeholder="方便回复的邮箱">
+      </div>
+      <div class="field">
+        <label>主题</label>
+        <input type="text" id="f-subject" placeholder="想聊点什么？" value="Whither 留言">
+      </div>
+      <div class="field">
+        <label>内容</label>
+        <textarea id="f-message" placeholder="有任何问题或想法都可以写在这里..."></textarea>
+      </div>
+      <button type="button" id="f-submit" class="btn btn-primary btn-large" style="width:100%;justify-content:center;">发送邮件</button>
+      <p style="text-align:center;font-size:11px;color:var(--sub);margin-top:10px;">
+        点击后会打开你的邮件客户端（内容已预填），不会收集任何数据。
+      </p>
+    </div>
+
+    <!-- FAQ 引导 -->
+    <div style="text-align:center;margin-top:48px;padding-top:32px;border-top:1px solid var(--line);">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:10px;">常见问题？</h3>
+      <p style="color:var(--sub);font-size:14px;margin-bottom:16px;">部署、API Key、技术架构等问题，文档里可能已经有答案。</p>
+      <a href="docs.html" class="btn btn-outline">📖 查看技术文档</a>
+    </div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="assets/whither-logo.svg" alt="Whither">
+        <span>Whither</span>
+      </div>
+      <p class="footer-desc">智能旅行规划 Agent · 覆盖国内 107 城<br>让每一次旅程都值得被出发。</p>
+    </div>
+    <div class="footer-col">
+      <h4>产品</h4>
+      <a href="app.html">在线体验</a>
+      <a href="docs.html">使用文档</a>
+      <a href="about.html">关于项目</a>
+    </div>
+    <div class="footer-col">
+      <h4>资源</h4>
+      <a href="https://github.com/yijuntuqi/Whither" target="_blank" rel="noopener">GitHub 后端</a>
+      <a href="https://github.com/yijuntuqi/whither-web" target="_blank" rel="noopener">GitHub 前端</a>
+      <a href="contact.html">联系作者</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Whither · 何之旅行规划助手</span>
+    <span>用 ❤️ 构建 · LangGraph + FastAPI + MCP</span>
+  </div>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 10));
+
+// 邮件表单
+document.getElementById('f-submit').addEventListener('click', () => {
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const subject = document.getElementById('f-subject').value.trim() || 'Whither 留言';
+  const message = document.getElementById('f-message').value.trim();
+  if (!message) { alert('请填写消息内容'); return; }
+  let body = '';
+  if (name) body += '姓名：' + name + '\n';
+  if (email) body += '邮箱：' + email + '\n';
+  if (name || email) body += '\n';
+  body += message;
+  location.href = 'mailto:202411109014@mail.bnu.edu.cn?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+});
+</script>
+</body>
+</html>
