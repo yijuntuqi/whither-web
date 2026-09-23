@@ -91,11 +91,13 @@ img { max-width: 100%; display: block; }
 }
 .hero-bg-img {
   position: absolute; inset: 0; object-fit: cover; width: 100%; height: 100%;
-  opacity: .34; filter: saturate(.85); pointer-events: none;
+  opacity: .72; filter: saturate(1.02); pointer-events: none;
 }
 .hero-bg-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(247,250,249,.78), rgba(247,250,249,.92));
+  background: linear-gradient(90deg,
+    rgba(247,250,249,.86) 0%, rgba(247,250,249,.62) 40%,
+    rgba(247,250,249,.30) 72%, rgba(247,250,249,.22) 100%);
   pointer-events: none;
 }
 .hero-inner { position: relative; z-index: 2; max-width: 1120px; margin: 0 auto; padding: 0 28px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 60px; align-items: center; }
